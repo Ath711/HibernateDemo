@@ -1,0 +1,18 @@
+<!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+
+    <!-- Database connection settings -->
+    <session-factory>
+        <property name="hibernate.connection.driver_class">com.mysql.cj.jdbc.Driver</property>
+        <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/d1</property>
+        <property name="hibernate.connection.username">root</property>
+        <property name="hibernate.connection.password">Admin@711</property>
+
+        <!-- Specify dialect -->
+        <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
+
+        <!-- to ask hibernate to create table for all entity classes with their name -->
+        <property name="hbm2ddl.auto">create</property>
+    </session-factory>
+</hibernate-configuration>
