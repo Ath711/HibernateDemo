@@ -1,6 +1,7 @@
 package org.example;
 
 import org.example.beans.Alien;
+import org.example.beans.AlienName;
 import org.example.constants.JDBCConstants;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -18,30 +19,34 @@ public class App {
     public static void main(String[] args) throws SQLException, ClassNotFoundException {
 
 
-
         Configuration configuration = new Configuration().configure().addAnnotatedClass(Alien.class);
         SessionFactory sessionFactory = configuration.buildSessionFactory();
         Session session = sessionFactory.openSession();
 
 
+
+        AlienName alienName = new AlienName();
+        alienName.setfName("first");
+        alienName.setlName("last");
+        alienName.setmName("mid");
+
         Alien alien = new Alien();
         alien.setAlienId(1);
-        alien.setaName("tom");
+        alien.setaName(alienName);
         alien.setColor("Green");
-
-        Alien alien1 = new Alien();
-        alien1.setAlienId(2);
-        alien1.setaName("don");
-        alien1.setColor("Blue");
 
         Transaction transaction = session.beginTransaction();
         session.save(alien);
         transaction.commit();
 
-        Transaction transaction1 = session.beginTransaction();
-        session.save(alien1);
-        transaction1.commit();
-
+//        Alien alien1 = new Alien();
+//        alien1.setAlienId(2);
+//        alien1.setaName("don");
+//        alien1.setColor("Blue");
+//
+//        Transaction transaction1 = session.beginTransaction();
+//        session.save(alien1);
+//        transaction1.commit();
 
 
 //        Connection connection = DriverManager.getConnection(JDBCConstants.url, JDBCConstants.username, JDBCConstants.password);
@@ -53,7 +58,6 @@ public class App {
 //            System.out.println(resultSet.getString(2) + "\n");
 //            System.out.println(resultSet.getString(3));
 //        }
-
 
     }
 }

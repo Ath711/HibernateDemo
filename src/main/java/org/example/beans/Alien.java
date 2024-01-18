@@ -24,11 +24,10 @@ public class Alien {
     @Id  // alienId will be considered as primary key now
     private int alienId;
 
-    @Transient // aName will not be stored in DB
-    private String aName;
+    //    @Transient aName will not be stored in DB
+    private AlienName aName;
 
-
-    @Column(name = "alienColor")
+    //    @Column(name = "alienColor")
     // we can also set column names in table, if we don't want one with default that is variable names
     private String color;
 
@@ -40,11 +39,11 @@ public class Alien {
         this.alienId = alienId;
     }
 
-    public String getaName() {
+    public AlienName getaName() {
         return aName;
     }
 
-    public void setaName(String aName) {
+    public void setaName(AlienName aName) {
         this.aName = aName;
     }
 
