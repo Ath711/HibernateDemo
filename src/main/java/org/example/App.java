@@ -11,6 +11,8 @@ import org.hibernate.cfg.Configuration;
 
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Hello world!
@@ -57,7 +59,7 @@ public class App {
 
 
 
-//        one to one demo
+        /*3. one to one demo
 
         Configuration configuration = new Configuration().configure().addAnnotatedClass(Laptop.class).addAnnotatedClass(Student.class);
         SessionFactory sessionFactory = configuration.buildSessionFactory();
@@ -97,7 +99,46 @@ public class App {
 
         Transaction transaction4 = session.beginTransaction();
         session.save(student2);
-        transaction4.commit();
+        transaction4.commit();*/
+
+
+         /*4. one to many demo with three tables
+         student, laptop, student_laptop*/
+
+
+        Configuration configuration = new Configuration().configure().addAnnotatedClass(Laptop.class).addAnnotatedClass(Student.class);
+        SessionFactory sessionFactory = configuration.buildSessionFactory();
+        Session session = sessionFactory.openSession();
+
+        Laptop laptop1 = new Laptop();
+        laptop1.setlId(1);
+        laptop1.setlName("HP");
+
+        Laptop laptop2 = new Laptop();
+        laptop2.setlId(2);
+        laptop2.setlName("Dell");
+
+        List<Laptop> laptops = new ArrayList<>();
+        laptops.add(laptop1);
+        laptops.add(laptop2);
+
+        Student student1 = new Student();
+        student1.setRollNo(1);
+        student1.setsName("A");
+        student1.setsMarks(40);
+        student1.setLaptop(laptops);
+
+        Transaction transaction1 = session.beginTransaction();
+        session.save(laptop1);
+        transaction1.commit();
+
+        Transaction transaction2 = session.beginTransaction();
+        session.save(laptop2);
+        transaction2.commit();
+
+        Transaction transaction3 = session.beginTransaction();
+        session.save(student1);
+        transaction3.commit();
 
 
     }

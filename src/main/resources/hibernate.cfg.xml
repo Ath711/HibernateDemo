@@ -13,7 +13,7 @@
         <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
 
         <!-- to ask hibernate to create table for all entity classes with their name -->
-        <property name="hbm2ddl.auto">update</property>
+        <property name="hbm2ddl.auto">create</property>
         <!--        if we use create instead of update here for the same java object name with-->
         <!--        different values it will create new table everytime-->
 
@@ -22,5 +22,6 @@
         <!--        and it will not create a new entry in the database. Instead, it will update the existing entry with the modified values.-->
 
         <!--        if we use update here and for the same object name with different values it will not create new table. It will keep on adding new records to existing table-->
+        <property name="show_sql">true</property>
     </session-factory>
 </hibernate-configuration>
