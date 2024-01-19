@@ -2,7 +2,11 @@ package org.example.beans;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class Laptop {
@@ -26,7 +30,7 @@ public class Laptop {
         this.lName = lName;
     }
 
-    @ManyToOne
+    /*@ManyToOne
     private Student student;
 
     public Student getStudent() {
@@ -34,6 +38,17 @@ public class Laptop {
     }
 
     public void setStudent(Student student) {
+        this.student = student;
+    }*/
+
+    @ManyToMany
+    private List<Student> student = new ArrayList<>();
+
+    public List<Student> getStudent() {
+        return student;
+    }
+
+    public void setStudent(List<Student> student) {
         this.student = student;
     }
 }

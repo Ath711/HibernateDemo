@@ -139,7 +139,7 @@ public class App {
 
 
         /*4. one to many demo with two tables
-         student, laptop*/
+         student, laptop
 
 
         Configuration configuration = new Configuration().configure().addAnnotatedClass(Laptop.class).addAnnotatedClass(Student.class);
@@ -161,7 +161,6 @@ public class App {
         student1.getLaptop().add(laptop1);
         student1.getLaptop().add(laptop2);
 
-
         Transaction transaction1 = session.beginTransaction();
         session.save(laptop1);
         session.save(laptop2);
@@ -169,7 +168,32 @@ public class App {
 
         Transaction transaction2= session.beginTransaction();
         session.save(student1);
-        transaction2.commit();
+        transaction2.commit(); */
+
+
+        /*5. many to many demo */
+
+        Configuration configuration = new Configuration().configure().addAnnotatedClass(Laptop.class).addAnnotatedClass(Student.class);
+        SessionFactory sessionFactory = configuration.buildSessionFactory();
+        Session session = sessionFactory.openSession();
+
+        Laptop laptop1 = new Laptop();
+        laptop1.setlId(1);
+        laptop1.setlName("HP");
+
+        Student student1 = new Student();
+        student1.setRollNo(1);
+        student1.setsName("A");
+        student1.setsMarks(40);
+
+        student1.getLaptop().add(laptop1);
+
+        laptop1.getStudent().add(student1);
+
+        Transaction transaction = session.beginTransaction();
+        session.save(laptop1);
+        session.save(student1);
+        transaction.commit();
 
 
     }
