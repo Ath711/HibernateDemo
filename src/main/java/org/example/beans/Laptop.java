@@ -25,4 +25,15 @@ public class Laptop {
     public void setlName(String lName) {
         this.lName = lName;
     }
+
+    @ManyToOne
+    private Student student;
+
+    public Student getStudent() {
+        return student;
+    }
+
+    public void setStudent(Student student) {
+        this.student = student;
+    }
 }
