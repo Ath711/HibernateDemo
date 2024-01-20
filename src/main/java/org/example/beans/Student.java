@@ -3,6 +3,7 @@ package org.example.beans;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 @Entity
@@ -23,17 +24,19 @@ public class Student {
         this.laptop = laptop;
     }*/
 
-/*    @OneToMany(mappedBy = "student")
-    private List<Laptop> laptop = new ArrayList<>();*/
+    @OneToMany(mappedBy = "student", fetch = FetchType.EAGER)
+    private Collection<Laptop> laptop = new ArrayList<>();
 
-    @ManyToMany(mappedBy = "student")
+   /* @ManyToMany(mappedBy = "student")
     private List<Laptop> laptop = new ArrayList<>();
 
-    public List<Laptop> getLaptop() {
+    */
+
+    public Collection<Laptop> getLaptop() {
         return laptop;
     }
 
-    public void setLaptop(List<Laptop> laptop) {
+    public void setLaptop(Collection<Laptop> laptop) {
         this.laptop = laptop;
     }
 
@@ -61,4 +64,5 @@ public class Student {
     public void setsMarks(int sMarks) {
         this.sMarks = sMarks;
     }
+
 }

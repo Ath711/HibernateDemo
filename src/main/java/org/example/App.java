@@ -12,6 +12,7 @@ import org.hibernate.cfg.Configuration;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -138,7 +139,7 @@ public class App {
         transaction2.commit();*/
 
 
-        /*4. one to many demo with two tables
+         /*4. one to many demo with two tables
          student, laptop
 
 
@@ -154,6 +155,10 @@ public class App {
         laptop2.setlId(2);
         laptop2.setlName("Dell");
 
+        Laptop laptop3 = new Laptop();
+        laptop3.setlId(3);
+        laptop3.setlName("Mac");
+
         Student student1 = new Student();
         student1.setRollNo(1);
         student1.setsName("A");
@@ -161,17 +166,27 @@ public class App {
         student1.getLaptop().add(laptop1);
         student1.getLaptop().add(laptop2);
 
-        Transaction transaction1 = session.beginTransaction();
+        Student student2 = new Student();
+        student2.setRollNo(2);
+        student2.setsName("B");
+        student2.setsMarks(45);
+        student2.getLaptop().add(laptop3);
+
+        laptop1.setStudent(student1);
+        laptop2.setStudent(student1);
+        laptop3.setStudent(student2);
+
+
+        Transaction transaction = session.beginTransaction();
         session.save(laptop1);
         session.save(laptop2);
-        transaction1.commit();
-
-        Transaction transaction2= session.beginTransaction();
+        session.save(laptop3);
         session.save(student1);
-        transaction2.commit(); */
+        session.save(student2);
+        transaction.commit(); */
 
 
-        /*5. many to many demo */
+        /*5. many to many demo
 
         Configuration configuration = new Configuration().configure().addAnnotatedClass(Laptop.class).addAnnotatedClass(Student.class);
         SessionFactory sessionFactory = configuration.buildSessionFactory();
@@ -193,8 +208,69 @@ public class App {
         Transaction transaction = session.beginTransaction();
         session.save(laptop1);
         session.save(student1);
-        transaction.commit();
+        transaction.commit(); */
 
 
+        // 6. fetch methods eager and lazy
+
+
+        Configuration configuration = new Configuration().configure().addAnnotatedClass(Laptop.class).addAnnotatedClass(Student.class);
+        SessionFactory sessionFactory = configuration.buildSessionFactory();
+        Session session = sessionFactory.openSession();
+
+//        Laptop laptop1 = new Laptop();
+//        laptop1.setlId(1);
+//        laptop1.setlName("HP");
+//
+//        Laptop laptop2 = new Laptop();
+//        laptop2.setlId(2);
+//        laptop2.setlName("Dell");
+//
+//        Laptop laptop3 = new Laptop();
+//        laptop3.setlId(3);
+//        laptop3.setlName("Mac");
+//
+//        Student student1 = new Student();
+//        student1.setRollNo(1);
+//        student1.setsName("A");
+//        student1.setsMarks(40);
+//        student1.getLaptop().add(laptop1);
+//        student1.getLaptop().add(laptop2);
+//
+//        Student student2 = new Student();
+//        student2.setRollNo(2);
+//        student2.setsName("B");
+//        student2.setsMarks(45);
+//        student2.getLaptop().add(laptop3);
+//
+//        laptop1.setStudent(student1);
+//        laptop2.setStudent(student1);
+//        laptop3.setStudent(student2);
+//
+//
+//        Transaction transaction = session.beginTransaction();
+//        session.save(laptop1);
+//        session.save(laptop2);
+//        session.save(laptop3);
+//        session.save(student1);
+//        session.save(student2);
+//        transaction.commit();
+
+        Transaction transaction1 = session.beginTransaction();
+       /* Lazy fetching values
+        it is firing query for laptops only when we want it
+
+        Student s1 = session.get(Student.class,1);
+        System.out.println(s1.getsName());
+        // above will only fetch values for Student and not laptops even though it has laptop
+        Collection<Laptop> laps = s1.getLaptop();
+        for(Laptop l : laps) {
+            System.out.println(l.getlId()+" "+l.getlName());
+        }*/
+
+        // eager fetching values (added fetch = FetchType.EAGER in Student)
+        Student s2 = session.get(Student.class,1);
+        System.out.println(s2.getsName());
+        transaction1.commit();
     }
 }
